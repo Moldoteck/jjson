@@ -44,12 +44,97 @@ export default function () {
       <div
         className={classnames(
           display('flex'),
-          flexDirection('flex-row'),
-          space('space-x-2'),
+          flexDirection('flex-col'),
+          space('space-y-2'),
           height('h-fit'),
           width('w-full')
         )}
       >
+        <div
+          className={classnames(
+            display('flex'),
+            flexDirection('flex-col'),
+            space('space-y-2'),
+            width('w-fit')
+          )}
+        >
+          <div
+            className={classnames(
+              display('flex'),
+              flexDirection('flex-row'),
+              width('w-fit'),
+              space('space-x-2')
+            )}
+          >
+            <Button
+              title="Format"
+              onClick={() => {
+                try {
+                  const value = (
+                    document.getElementById('1') as HTMLTextAreaElement
+                  ).value
+                  console.log(value)
+
+                  if (value == '') {
+                    return
+                  }
+                  const jsonParse = JSON.parse(value)
+
+                  const spaces = (
+                    document.getElementById('2') as HTMLInputElement
+                  ).value
+                  const spacesNR = Number(spaces)
+
+                  const json = JSON.stringify(
+                    jsonParse,
+                    null,
+                    spacesNR && spacesNR <= 20 ? spacesNR : 2
+                  )
+
+                  ;(document.getElementById('1') as HTMLTextAreaElement).value =
+                    json
+                } catch (e) {
+                  console.log(e)
+                  window.alert(e)
+                }
+              }}
+            />
+            <Button
+              title="UnFormat"
+              onClick={() => {
+                try {
+                  const value = (
+                    document.getElementById('1') as HTMLTextAreaElement
+                  ).value
+                  if (value == '') {
+                    return
+                  }
+                  const jsonParse = JSON.parse(value)
+
+                  const json = JSON.stringify(jsonParse)
+                  ;(document.getElementById('1') as HTMLTextAreaElement).value =
+                    json
+                } catch (e) {
+                  console.log(e)
+                  window.alert(e)
+                }
+              }}
+            />
+          </div>
+          <input
+            id="2"
+            placeholder="Nr. of spaces"
+            className={classnames(
+              textColor('text-white'),
+              fontFamily('font-mono'),
+              fontWeight('font-bold'),
+              backgroundColor('bg-gray-900'),
+              padding('p-2'),
+              textAlign('placeholder:text-center'),
+              width('w-full')
+            )}
+          />
+        </div>
         <div
           className={classnames(
             display('flex'),
@@ -61,7 +146,6 @@ export default function () {
             borderRadius('rounded'),
             padding('p-2')
           )}
-          style={'margin-left: calc(50% - 300px)'}
         >
           <textarea
             id="1"
@@ -75,70 +159,6 @@ export default function () {
               textColor('text-white'),
               fontFamily('font-mono'),
               fontWeight('font-bold')
-            )}
-          />
-        </div>
-        <div
-          className={classnames(
-            display('flex'),
-            flexDirection('flex-col'),
-            space('space-y-2')
-          )}
-        >
-          <Button
-            title="Format"
-            onClick={() => {
-              try {
-                const value = (
-                  document.getElementById('1') as HTMLTextAreaElement
-                ).value
-                console.log(value)
-                const jsonParse = JSON.parse(value)
-
-                const spaces = (
-                  document.getElementById('2') as HTMLInputElement
-                ).value
-                const spacesNR = Number(spaces)
-
-                const json = JSON.stringify(
-                  jsonParse,
-                  null,
-                  spacesNR && spacesNR <= 20 ? spacesNR : 2
-                )
-
-                ;(document.getElementById('1') as HTMLTextAreaElement).value =
-                  json
-              } catch (e) {
-                console.log(e)
-              }
-            }}
-          />
-          <Button
-            title="UnFormat"
-            onClick={() => {
-              try {
-                const value = (
-                  document.getElementById('1') as HTMLTextAreaElement
-                ).value
-                const jsonParse = JSON.parse(value)
-
-                const json = JSON.stringify(jsonParse)
-                ;(document.getElementById('1') as HTMLTextAreaElement).value =
-                  json
-              } catch (e) {
-                console.log(e)
-              }
-            }}
-          />
-          <input
-            id="2"
-            placeholder="Nr. of spaces"
-            className={classnames(
-              textColor('text-white'),
-              fontFamily('font-mono'),
-              fontWeight('font-bold'),
-              padding('p-2'),
-              textAlign('placeholder:text-center')
             )}
           />
         </div>
