@@ -47,7 +47,9 @@ export default function () {
           flexDirection('flex-col'),
           space('space-y-2'),
           height('h-fit'),
-          width('w-full')
+          width('w-full'),
+          alignItems('items-center'),
+          justifyContent('justify-center')
         )}
       >
         <div
@@ -124,6 +126,7 @@ export default function () {
           <input
             id="2"
             placeholder="Nr. of spaces"
+            value={'2'}
             className={classnames(
               textColor('text-white'),
               fontFamily('font-mono'),
